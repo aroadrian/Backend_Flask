@@ -58,6 +58,14 @@ def get_event(id):
     formattted_event = format_event(event)
     return {'event': formattted_event}
 
+@app.route('/events/<int:id>', methods=['DELETE'])
+def delete_event(id):
+    event = Event.query.filter_by(id=id).one()
+    db.session.delete(event)
+    db.session.commit()
+    return {'message': 'Event deleted successfully'}
+
+
 # Run the Flask app
 if __name__ == "__main__":
     app.run(debug=True)
